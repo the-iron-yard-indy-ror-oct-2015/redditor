@@ -8,7 +8,7 @@
     <div class="col-xs-9">
       <h3><%= link_to link.title, click_link_path(link) %></h3>
       <%= simple_format(link.summary) %>
-      <p class="meta"><%= link_to "Edit this link", edit_link_path(link) %></p>
+      <p class="meta">Submitted by: <%= link.user.name %><%= " | #{link_to "Edit this link", edit_link_path(link)}".html_safe if @current_user == link.user %></p>
     </div>
   </div>
 <% end %>

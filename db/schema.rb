@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151109161947) do
+ActiveRecord::Schema.define(version: 20151110154630) do
 
   create_table "links", force: :cascade do |t|
     t.string   "title"
@@ -19,6 +19,27 @@ ActiveRecord::Schema.define(version: 20151109161947) do
     t.text     "summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "username"
+    t.string   "email"
+    t.string   "crypted_password"
+    t.string   "password_salt"
+    t.string   "persistence_token"
+    t.string   "single_access_token"
+    t.string   "perishable_token"
+    t.integer  "login_count",         default: 0, null: false
+    t.integer  "failed_login_count",  default: 0, null: false
+    t.datetime "last_request_at"
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.string   "current_login_ip"
+    t.string   "last_login_ip"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "votes", force: :cascade do |t|
@@ -26,6 +47,7 @@ ActiveRecord::Schema.define(version: 20151109161947) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "value",      default: 1
+    t.integer  "user_id"
   end
 
 end

@@ -1,6 +1,7 @@
 class Link < ActiveRecord::Base
 
   has_many :votes
+  belongs_to :user
 
   validates_presence_of :title, :url
 
@@ -12,6 +13,12 @@ class Link < ActiveRecord::Base
     unless self.url =~ /\Ahttp(|s):\/\//
       self.url = "http://" + self.url
     end
+  end
+
+  def cast_vote(user, value=1)
+    vote = Vote.new(value: value, :user => user)
+    self.votes << vote
+    vote
   end
 
 end

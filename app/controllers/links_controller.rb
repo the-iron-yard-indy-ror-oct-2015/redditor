@@ -1,4 +1,5 @@
 class LinksController < ApplicationController
+  before_action :check_if_current_user_is_owner, :only => [:edit, :update]
 
   def index
     @links = Link.all.sort_by{|link| link.votes.sum(:value)}.reverse
@@ -11,7 +12,9 @@ class LinksController < ApplicationController
 
   def create
     @link = Link.new(link_params)
+    @link.user = @current_user
     if @link.save
+      flash[:success] = "Wahoo! You've submitted an awesome new link!"
       redirect_to root_path
     else
       render "new"
@@ -19,11 +22,9 @@ class LinksController < ApplicationController
   end
 
   def edit
-    @link = Link.find(params[:id])
   end
 
   def update
-    @link = Link.find(params[:id])
     if @link.update(link_params)
       redirect_to root_url
     else
@@ -42,6 +43,14 @@ class LinksController < ApplicationController
 
   def link_params
     params.require(:link).permit(:title, :url, :summary)
+  end
+
+  def check_if_current_user_is_owner
+    @link = Link.find(params[:id])
+    unless @link.user == @current_user
+      flash[:danger] = "That's not your link, bub!"
+      redirect_to root_url
+    end
   end
 
 end

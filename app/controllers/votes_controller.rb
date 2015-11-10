@@ -3,9 +3,13 @@ class VotesController < ApplicationController
   def create
     @link = Link.find(params[:link_id])
     if params[:downvote]
-      @link.votes.create(value: -1)
+      value = -1
     else
-      @link.votes.create
+      value = 1
+    end
+    vote = @link.cast_vote(@current_user, value)
+    unless vote.persisted?
+      flash[:warning] = vote.errors.first.last
     end
     redirect_to root_url
   end

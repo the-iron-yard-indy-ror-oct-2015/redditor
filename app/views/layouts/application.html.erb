@@ -8,11 +8,21 @@
 </head>
 <body>
   <div class="container">
+    <% flash.each do |name, message| %>
+      <%= content_tag :div, message, class: "alert alert-#{name}" %>
+    <% end %>
     <div class="col-xs-10">
       <%= yield %>
     </div>
     <div class="col-xs-2">
-      <%= link_to "New Link", new_link_path, :class => "btn btn-large btn-primary" %>
+      <% if @current_user %>
+        <h6>Howdy, <%= @current_user.name %></h6>
+        <%= link_to "New Link", new_link_path, :class => "btn btn-large btn-primary" %>
+        <%= link_to "Log out", user_session_path(@current_user), :method => :delete, :class => "btn btn-large btn-danger" %>
+      <% else %>
+        <%= link_to "Log in", new_user_session_path, :class => "btn btn-large btn-primary" %>
+        <%= link_to "Sign up", new_user_path, :class => "btn btn-large btn-primary" %>
+      <% end %>
     </div>
   </div>
 </body>
