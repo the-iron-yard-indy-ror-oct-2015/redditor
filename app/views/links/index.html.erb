@@ -1,14 +1,21 @@
 <% @links.each do |link| %>
   <div class="row">
     <div class="col-xs-3">
-      <%= button_to "+1", link_votes_path(link), :class => "btn btn-primary" %>
+      <% if @current_user %>
+        <%= button_to "+1", link_votes_path(link), :class => "btn btn-primary" %>
+      <% end %>
       <h6><%= link.votes.sum(:value) %></h6>
-      <%= button_to "-1", link_votes_path(link, :downvote => true), :class => "btn btn-primary" %>
+      <% if @current_user %>
+        <%= button_to "-1", link_votes_path(link, :downvote => true), :class => "btn btn-primary" %>
+      <% end %>
     </div>
     <div class="col-xs-9">
       <h3><%= link_to link.title, click_link_path(link) %></h3>
       <%= simple_format(link.summary) %>
       <p class="meta">Submitted by: <%= link.user.name %><%= " | #{link_to "Edit this link", edit_link_path(link)}".html_safe if @current_user == link.user %></p>
+      <% if link.tags.any? %>
+        <p class="tags">Tagged with: <%= link.tags.collect{|t| link_to t.name, tag_path(t.name)}.join(", ").html_safe %></p>
+      <% end %>
     </div>
   </div>
 <% end %>

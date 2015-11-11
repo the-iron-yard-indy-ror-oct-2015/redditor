@@ -1,7 +1,38 @@
 Rails.application.routes.draw do
+  get 'comments/index:get'
+
+  get 'comments/show:get'
+
+  get 'comments/create:post'
+
+  get 'comments/edit:get'
+
+  get 'comments/update:patch'
+
+  get 'comments/destroy:delete'
+
+  get 'comments/new:get'
+
+  get 'comments/index'
+
+  get 'comments/show'
+
+  get 'comments/create'
+
+  get 'comments/edit'
+
+  get 'comments/update'
+
+  get 'comments/destroy'
+
+  get 'comments/new'
+
   resources :links do
     member do
       get 'click'
+    end
+    resources :comments do
+      resources :comments
     end
     resources :votes, :only => [:create]
   end
@@ -14,6 +45,8 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'links#index'
+
+  get '/tags/:tag' => 'links#index', :as => :tag
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

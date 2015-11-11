@@ -2,6 +2,8 @@ class Link < ActiveRecord::Base
 
   has_many :votes
   belongs_to :user
+  has_many :taggings
+  has_many :tags, :through => :taggings
 
   validates_presence_of :title, :url
 
@@ -19,6 +21,17 @@ class Link < ActiveRecord::Base
     vote = Vote.new(value: value, :user => user)
     self.votes << vote
     vote
+  end
+
+  def tag_names=(tags)
+    tags.split(",").collect{|t| t.strip}.each do |tag|
+      this_tag = Tag.find_or_create_by(name: Tag.clean_name(tag))
+      self.tags << this_tag
+    end
+  end
+
+  def tag_names
+    self.tags.collect{|t| t.name}.join(", ")
   end
 
 end

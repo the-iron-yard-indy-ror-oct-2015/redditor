@@ -1,9 +1,19 @@
 class LinksController < ApplicationController
+  before_action :require_user, :only => [:new, :create, :edit, :update]
   before_action :check_if_current_user_is_owner, :only => [:edit, :update]
 
   def index
-    @links = Link.all.sort_by{|link| link.votes.sum(:value)}.reverse
+    if params[:tag]
+      @tag = Tag.find_by_name(params[:tag])
+      @links = @tag.links.sort_by{|link| link.votes.sum(:value)}.reverse
+    else
+      @links = Link.all.sort_by{|link| link.votes.sum(:value)}.reverse
+    end
     # @links = Link.select("COUNT('votes.id') as vote_count, links.*").joins(:votes).order("vote_count DESC").limit(25)
+  end
+
+  def show
+    @link = Link.find(params[:id])
   end
 
   def new
@@ -42,7 +52,7 @@ class LinksController < ApplicationController
   private
 
   def link_params
-    params.require(:link).permit(:title, :url, :summary)
+    params.require(:link).permit(:title, :url, :summary, :tag_names)
   end
 
   def check_if_current_user_is_owner
