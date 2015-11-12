@@ -4,9 +4,6 @@ Rails.application.routes.draw do
     member do
       get 'click'
     end
-    resources :comments do
-      resources :comments
-    end
     resources :votes, :only => [:create]
   end
 
