@@ -5,11 +5,10 @@ class LinksController < ApplicationController
   def index
     if params[:tag]
       @tag = Tag.find_by_name(params[:tag])
-      @links = @tag.links.sort_by{|link| link.votes.sum(:value)}.reverse
+      @links = @tag.links.order("vote_total DESC").page(params[:page] || 1).per(10)
     else
-      @links = Link.all.sort_by{|link| link.votes.sum(:value)}.reverse
+      @links = Link.order("vote_total DESC").page(params[:page] || 1).per(10)
     end
-    # @links = Link.select("COUNT('votes.id') as vote_count, links.*").joins(:votes).order("vote_count DESC").limit(25)
   end
 
   def show

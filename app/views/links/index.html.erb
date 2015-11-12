@@ -1,10 +1,12 @@
+<%= paginate @links %>
+
 <% @links.each do |link| %>
   <div class="row">
     <div class="col-xs-3">
       <% if @current_user %>
         <%= button_to "+1", link_votes_path(link), :class => "btn btn-primary" %>
       <% end %>
-      <h6><%= link.votes.sum(:value) %></h6>
+      <h6><%= link.vote_total %></h6>
       <% if @current_user %>
         <%= button_to "-1", link_votes_path(link, :downvote => true), :class => "btn btn-primary" %>
       <% end %>
@@ -19,3 +21,5 @@
     </div>
   </div>
 <% end %>
+
+<%= paginate @links %>

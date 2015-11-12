@@ -11,7 +11,7 @@ class VotesController < ApplicationController
     unless vote.persisted?
       flash[:warning] = vote.errors.first.last
     end
-    redirect_to root_url
+    redirect_to :back
   end
 
 end

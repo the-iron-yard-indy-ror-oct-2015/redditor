@@ -11,15 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151111142359) do
+ActiveRecord::Schema.define(version: 20151112143049) do
 
   create_table "links", force: :cascade do |t|
     t.string   "title"
     t.string   "url"
     t.text     "summary"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "user_id"
+    t.integer  "vote_total", default: 0
+    t.boolean  "voted",      default: false
   end
 
   create_table "taggings", force: :cascade do |t|

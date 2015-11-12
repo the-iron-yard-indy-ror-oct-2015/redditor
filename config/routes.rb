@@ -1,31 +1,4 @@
 Rails.application.routes.draw do
-  get 'comments/index:get'
-
-  get 'comments/show:get'
-
-  get 'comments/create:post'
-
-  get 'comments/edit:get'
-
-  get 'comments/update:patch'
-
-  get 'comments/destroy:delete'
-
-  get 'comments/new:get'
-
-  get 'comments/index'
-
-  get 'comments/show'
-
-  get 'comments/create'
-
-  get 'comments/edit'
-
-  get 'comments/update'
-
-  get 'comments/destroy'
-
-  get 'comments/new'
 
   resources :links do
     member do
