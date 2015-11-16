@@ -1,0 +1,13 @@
+h1
+  - if @comment.commentable.is_a?(Link)
+    | Comment on "#{link_to @comment.commentable.title, @comment.commentable}"
+  - else
+    | Comment on "#{link_to truncate(@comment.commentable.body), link_path(@comment.root_element, anchor: "comment-#{@comment.commentable_id}")}"
+
+
+#comment-body
+  = render :partial => "shared/comment", :locals => {:comment => @comment}
+  
+= bootstrap_form_for [@comment, Comment.new] do |f|
+  = f.text_area :body
+  = f.submit "Comment!"
