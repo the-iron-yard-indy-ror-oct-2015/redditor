@@ -27,6 +27,7 @@ gem 'authlogic'
 gem 'bootstrap_form'
 gem 'faker'
 gem 'kaminari'
+gem 'slim'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
