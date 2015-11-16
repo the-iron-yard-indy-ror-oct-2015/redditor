@@ -5,14 +5,15 @@ class LinksController < ApplicationController
   def index
     if params[:tag]
       @tag = Tag.find_by_name(params[:tag])
-      @links = @tag.links.order("vote_total DESC").page(params[:page] || 1).per(10)
+      @links = @tag.links.order("vote_total DESC, created_at DESC").page(params[:page] || 1).per(10)
     else
-      @links = Link.order("vote_total DESC").page(params[:page] || 1).per(10)
+      @links = Link.order("vote_total DESC, created_at DESC").page(params[:page] || 1).per(10)
     end
   end
 
   def show
     @link = Link.find(params[:id])
+    @comment = Comment.new
   end
 
   def new

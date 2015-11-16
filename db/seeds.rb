@@ -21,6 +21,7 @@
     link.summary = Faker::Lorem.sentences(2).join("\n\n")
     link.tag_names = Faker::Lorem.words(4).join(", ")
     link.user = user
+    link.created_at = Faker::Time.between(6.months.ago, DateTime.now)
     link.save!
   end
 end

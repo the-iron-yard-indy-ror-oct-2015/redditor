@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get 'click'
     end
     resources :votes, :only => [:create]
+    resources :comments, :only => [:show, :create]
   end
 
   resources :users, :except => [:destroy]
