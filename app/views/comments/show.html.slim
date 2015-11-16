@@ -7,7 +7,8 @@ h1
 
 #comment-body
   = render :partial => "shared/comment", :locals => {:comment => @comment}
-  
-= bootstrap_form_for [@comment, Comment.new] do |f|
-  = f.text_area :body
-  = f.submit "Comment!"
+
+- if @current_user  
+  = bootstrap_form_for [@comment, Comment.new] do |f|
+    = f.text_area :body
+    = f.submit "Comment!"

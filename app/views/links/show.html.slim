@@ -10,9 +10,10 @@ h1
   #link-comments
     h3 Comments
     = render :partial => "shared/comment", :collection => @link.comments
-      
-#link-comments-form
-  h3 Leave a missive
-  = bootstrap_form_for [@link, @comment] do |f|
-    = f.text_area :body
-    = f.submit "Comment!"
+
+- if @current_user      
+  #link-comments-form
+    h3 Leave a missive
+    = bootstrap_form_for [@link, @comment] do |f|
+      = f.text_area :body
+      = f.submit "Comment!"
