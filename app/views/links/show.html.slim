@@ -1,0 +1,18 @@
+h1
+  = @link.title
+
+#link-summary
+  = simple_format @link.summary
+  p.meta
+    | Vote total: #{@link.vote_total}. Added by: #{@link.user.name} on #{@link.created_at.to_s(:iron_yard)}
+
+- if @link.comments.any?
+  #link-comments
+    h3 Comments
+    = render :partial => "shared/comment", :collection => @link.comments
+      
+#link-comments-form
+  h3 Leave a missive
+  = bootstrap_form_for [@link, @comment] do |f|
+    = f.text_area :body
+    = f.submit "Comment!"

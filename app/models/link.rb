@@ -4,6 +4,7 @@ class Link < ActiveRecord::Base
   belongs_to :user
   has_many :taggings
   has_many :tags, :through => :taggings
+  has_many :comments, :as => :commentable
 
   validates_presence_of :title, :url
 
