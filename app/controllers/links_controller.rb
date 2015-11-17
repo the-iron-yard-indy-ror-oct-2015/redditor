@@ -9,6 +9,11 @@ class LinksController < ApplicationController
     else
       @links = Link.order("vote_total DESC, created_at DESC").page(params[:page] || 1).per(10)
     end
+    respond_to do |format|
+      format.html{}
+      format.json{
+      }
+    end
   end
 
   def show
