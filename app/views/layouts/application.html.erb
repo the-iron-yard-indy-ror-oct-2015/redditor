@@ -20,10 +20,15 @@
         <%= link_to "New Link", new_link_path, :class => "btn btn-large btn-primary" %>
         <%= link_to "Log out", user_session_path(@current_user), :method => :delete, :class => "btn btn-large btn-danger" %>
       <% else %>
-        <%= link_to "Log in", new_user_session_path, :class => "btn btn-large btn-primary" %>
+        <%= link_to "Log in", new_user_session_path, :class => "btn btn-large btn-primary", :id => "login-button" %>
         <%= link_to "Sign up", new_user_path, :class => "btn btn-large btn-primary" %>
       <% end %>
     </div>
   </div>
+  <script id="extra_template" type="text/x-handlebars-template">
+    <div class="alert alert-{{type}}">
+      {{alert}}
+    </div>
+  </script>
 </body>
 </html>
