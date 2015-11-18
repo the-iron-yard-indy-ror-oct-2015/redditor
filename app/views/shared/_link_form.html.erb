@@ -1,9 +1,9 @@
-<% if @link.errors.any? %>
+<% if @new_link.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(@link.errors.count, "error") %> prohibited this link from being saved:</h2>
+    <h2><%= pluralize(@new_link.errors.count, "error") %> prohibited this link from being saved:</h2>
 
     <ul>
-    <% @link.errors.full_messages.each do |msg| %>
+    <% @new_link.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
     <% end %>
     </ul>
@@ -11,7 +11,7 @@
 <% end %>
 
 
-<%= form_for(@link) do |f| %>
+<%= form_for(@new_link, :remote => true) do |f| %>
 
   <div class="form-group">
     <%= f.label :title %>

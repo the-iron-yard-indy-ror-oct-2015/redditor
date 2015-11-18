@@ -22,15 +22,25 @@ class LinksController < ApplicationController
   end
 
   def new
-    @link = Link.new
+    respond_to do |format|
+      format.html {}
+      format.js {
+        render :partial => "shared/link_form", :layout => false
+      }
+    end
   end
 
   def create
-    @link = Link.new(link_params)
-    @link.user = @current_user
-    if @link.save
-      flash[:success] = "Wahoo! You've submitted an awesome new link!"
-      redirect_to root_path
+    @new_link = Link.new(link_params)
+    @new_link.user = @current_user
+    if @new_link.save
+      respond_to do |format|
+        format.html{
+          flash[:success] = "Wahoo! You've submitted an awesome new link!"
+          redirect_to root_path
+        }
+        format.js {}
+      end
     else
       render "new"
     end

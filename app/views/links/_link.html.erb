@@ -1,0 +1,20 @@
+<div class="row" id="link-<%= link.id %>">
+  <div class="col-xs-3">
+    <% if @current_user %>
+      <%= button_to "+1", link_votes_path(link), :class => "btn btn-primary", :remote => true %>
+    <% end %>
+    <h6><%= link.vote_total %></h6>
+    <% if @current_user %>
+      <%= button_to "-1", link_votes_path(link, :downvote => true), :class => "btn btn-primary", :remote => true %>
+    <% end %>
+  </div>
+  <div class="col-xs-9">
+    <h3><%= link_to link.title, click_link_path(link) %></h3>
+    <p class="date"><%= link_to link.created_at.to_s(:iron_yard), link %></p>
+    <%= simple_format(link.summary) %>
+    <p class="meta">Submitted by: <%= link.user.name %><%= " | #{link_to "Edit this link", edit_link_path(link)}".html_safe if @current_user == link.user %></p>
+    <% if link.tags.any? %>
+      <p class="tags">Tagged with: <%= link.tags.collect{|t| link_to t.name, tag_path(t.name)}.join(", ").html_safe %></p>
+    <% end %>
+  </div>
+</div>

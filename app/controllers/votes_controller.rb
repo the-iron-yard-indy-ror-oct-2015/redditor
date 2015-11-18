@@ -11,7 +11,10 @@ class VotesController < ApplicationController
     unless vote.persisted?
       flash[:warning] = vote.errors.first.last
     end
-    redirect_to :back
+    respond_to do |format|
+      format.html{ redirect_to :back }
+      format.js {}
+    end
   end
 
 end
