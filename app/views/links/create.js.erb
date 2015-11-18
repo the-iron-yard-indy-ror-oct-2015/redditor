@@ -1,0 +1,6 @@
+$('#newPost').modal('toggle');
+$('.alert').remove();
+var context = {alert: "Woo! A New Link!", type: "success"};
+var html    = render_handlebars(context);
+$('.container').first().prepend(html);
+$('#links_list').prepend("<%=j render :partial => 'links/link', locals: {link: @new_link} %>");

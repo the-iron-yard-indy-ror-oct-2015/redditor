@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   helper_method :current_user_session, :current_user
-  before_action :current_user
+  before_action :current_user, :load_new_link
 
   private
   def current_user_session
@@ -28,6 +28,10 @@ class ApplicationController < ActionController::Base
       flash[:warning] = "You're already logged in and good to go."
       redirect_to root_url
     end
+  end
+
+  def load_new_link
+    @new_link = Link.new
   end
 
 end
