@@ -15,7 +15,7 @@ class Link < ActiveRecord::Base
   scope :voted_on, -> { where(:voted => true) }
 
   def add_http
-    unless self.url =~ /\Ahttp(|s):\/\//
+    unless self.url =~ /\Ahttp(|s):\/\// || self.url.blank?
       self.url = "http://" + self.url
     end
   end

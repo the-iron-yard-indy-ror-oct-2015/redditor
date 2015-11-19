@@ -1,36 +1,9 @@
-<% if @new_link.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@new_link.errors.count, "error") %> prohibited this link from being saved:</h2>
+<%= bootstrap_form_for(@new_link, remote: true) do |f| %>
 
-    <ul>
-    <% @new_link.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-
-
-<%= form_for(@new_link, :remote => true) do |f| %>
-
-  <div class="form-group">
-    <%= f.label :title %>
     <%= f.text_field :title, :class => "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :url %>
     <%= f.text_field :url, :class => "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :summary %>
     <%= f.text_area :summary, :class => "form-control", :rows => 4 %>
-  </div>
-  <div class="form-group">
-    <%= f.label :tags %>
     <%= f.text_field :tag_names, :class => "form-control" %>
-  </div>
-  <div class="form-group">
     <%= f.submit "Save" %>
-  </div>
 
 <% end %>

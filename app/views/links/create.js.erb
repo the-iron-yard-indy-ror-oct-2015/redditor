@@ -1,4 +1,5 @@
 $('#newPost').modal('toggle');
+document.getElementById("new_link").reset();
 $('.alert').remove();
 var context = {alert: "Woo! A New Link!", type: "success"};
 var html    = render_handlebars(context);
