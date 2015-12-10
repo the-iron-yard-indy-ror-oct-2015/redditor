@@ -19,7 +19,8 @@ class ApplicationController < ActionController::Base
   def require_user
     unless @current_user
       flash[:danger] = "You need to be logged in to do that."
-      redirect_to root_url
+      session[:last_page] = request.url
+      redirect_to new_user_session_path
     end
   end
 

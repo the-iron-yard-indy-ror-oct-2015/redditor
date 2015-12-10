@@ -9,12 +9,31 @@
     <% end %>
   </div>
   <div class="col-xs-9">
-    <h3><%= link_to link.title, click_link_path(link) %></h3>
-    <p class="date"><%= link_to link.created_at.to_s(:iron_yard), link %></p>
+    <h1><%= this %></h1>
+    <h3><%= link_to link.title, click_link_path(link), "data-toggle" => "modal", "data-target" => "#link-modal-#{link.id}", "data-remote" => false %></h3>
+    <p class="date"><%= link_to link.created_at.to_s(:iron_yard), link_path(link, :all => true) %></p>
     <%= simple_format(link.summary) %>
     <p class="meta">Submitted by: <%= link.user.name %><%= " | #{link_to "Edit this link", edit_link_path(link)}".html_safe if @current_user == link.user %></p>
     <% if link.tags.any? %>
-      <p class="tags">Tagged with: <%= link.tags.collect{|t| link_to t.name, tag_path(t.name)}.join(", ").html_safe %></p>
+      <p class="tags">Tagged with: <%= link.tags.collect{|t| link_to t.name, tag_path(t.name), :remote => true}.join(", ").html_safe %></p>
     <% end %>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="link-modal-<%= link.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"><%= link.title %></h4>
+      </div>
+      <div class="modal-body">
+        <%= simple_format link.summary %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>

@@ -11,6 +11,9 @@
     <% flash.each do |name, message| %>
       <%= content_tag :div, message, class: "alert alert-#{name}" %>
     <% end %>
+    <% if session[:welcome_message] %>
+    <h1><%= session[:welcome_message] %></h1>
+    <% end %>
     <div class="col-xs-10">
       <%= yield %>
     </div>

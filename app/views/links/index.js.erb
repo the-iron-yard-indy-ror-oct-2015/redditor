@@ -1,0 +1,5 @@
+$('#links_list').html("<%=j render @links %>");
+<% if @tag %>
+  $('.alert').text("<%=j @tag.name + ' links' %>");
+<% end %>
+$('nav.pagination').replaceWith("<%=j paginate @links, remote: true %>");

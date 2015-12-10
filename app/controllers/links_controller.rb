@@ -3,6 +3,7 @@ class LinksController < ApplicationController
   before_action :check_if_current_user_is_owner, :only => [:edit, :update]
 
   def index
+    session[:welcome_message] = "Hi there, ya'll"
     if params[:tag]
       @tag = Tag.find_by_name(params[:tag])
       @links = @tag.links.order("vote_total DESC, created_at DESC").page(params[:page] || 1).per(10)
@@ -13,6 +14,7 @@ class LinksController < ApplicationController
       format.html{}
       format.json{
       }
+      format.js {}
     end
   end
 
@@ -32,7 +34,7 @@ class LinksController < ApplicationController
 
   def create
     @new_link = Link.new(link_params)
-    @new_link.user = @current_user
+    @new_link.user = current_user
     if @new_link.save
       respond_to do |format|
         format.html{
